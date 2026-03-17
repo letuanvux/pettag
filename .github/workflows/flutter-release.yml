@@ -1,0 +1,42 @@
+name: Flutter Build & Release APK
+
+on:
+  push:
+    tags:
+      - "v*"   # ví dụ: v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Ensure platform folders
+        run: flutter create .
+
+      - name: Fix Android minSdkVersion
+        run: |
+          sed -i 's/minSdkVersion [0-9]\+/minSdkVersion 21/g' android/app/build.gradle
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Rename APK
+        run: mv build/app/outputs/flutter-apk/app-release.apk app-release.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
