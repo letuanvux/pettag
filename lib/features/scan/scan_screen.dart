@@ -9,7 +9,7 @@ class ScanScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Scan Tag")),
       body: MobileScanner(
-        onDetect: ((BarcodeCapture capture) {
+        onDetect: (BarcodeCapture capture) {
           final List<Barcode> barcodes = capture.barcodes;
 
           for (final barcode in barcodes) {
