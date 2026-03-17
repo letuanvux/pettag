@@ -1,0 +1,33 @@
+name: Flutter Build & Release APK
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+
+      - run: flutter pub get
+
+      - run: flutter create .
+
+      - name: Fix Android config
+        run: |
+          sed -i 's/minSdkVersion [0-9]\+/minSdkVersion 21/g' android/app/build.gradle
+
+      - run: flutter build apk --release
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
