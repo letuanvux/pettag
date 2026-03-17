@@ -10,7 +10,7 @@ class ScanScreen extends StatelessWidget {
       appBar: AppBar(title: const Text("Scan Tag")),
       body: MobileScanner(
         onDetect: (barcode, args) {
-          final code = barcode.rawValue;
+          final code = value.displayValue ?? 'No display value.';
           debugPrint("Scanned: $code");
         },
       ),
