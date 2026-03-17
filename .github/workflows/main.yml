@@ -21,6 +21,10 @@ jobs:
       - name: Fix missing Android/iOS folders
         run: flutter create .
 
+      - name: Fix minSdkVersion
+        run: |
+          sed -i 's/minSdkVersion [0-9]\+/minSdkVersion 20/g' android/app/build.gradle
+
       - name: Build APK
         run: flutter build apk --release
 
