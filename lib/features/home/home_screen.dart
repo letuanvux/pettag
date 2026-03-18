@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
 import 'widgets/pet_card.dart';
+import 'widgets/activity_card.dart';
+import 'widgets/battery_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Pet Tag Manager")),
-      body: ListView(
-        children: const [
-          PetCard(name: "Bella", breed: "Golden Retriever", tagId: "829374"),
-          PetCard(name: "Mimi", breed: "British Shorthair", tagId: "182930"),
-        ],
+
+      appBar: AppBar(
+        title: const Text("Hello, Minh 👋"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.pets),
+
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: const [
+
+          PetCard(),
+
+          SizedBox(height: 16),
+
+          ActivityCard(),
+
+          SizedBox(height: 16),
+
+          BatteryCard(),
+
+        ],
       ),
     );
   }
