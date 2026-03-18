@@ -6,12 +6,7 @@ class AppTheme {
     useMaterial3: true,
     colorSchemeSeed: Colors.green,
     scaffoldBackgroundColor: const Color(0xFFF5F7FA),
-    cardTheme: CardTheme(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-    ),
+    
   );
 
 }
