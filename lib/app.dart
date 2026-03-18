@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'routes/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'theme/app_theme.dart';
 
 class PetTagApp extends StatelessWidget {
   const PetTagApp({super.key});
