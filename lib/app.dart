@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'navigation/bottom_nav.dart';
+import 'routes/app_router.dart';
 import 'core/theme/app_theme.dart';
 
 class PetTagApp extends StatelessWidget {
@@ -11,7 +11,8 @@ class PetTagApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Pet Tag",
       theme: AppTheme.light,
-      home: const BottomNav(),
+      onGenerateRoute: AppRouter.generate,
+      initialRoute: "/",
     );
   }
 }
