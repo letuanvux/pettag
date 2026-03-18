@@ -18,30 +18,40 @@ jobs:
         with:
           channel: stable
 
-      - run: flutter --version
-
-      - run: flutter pub get     
+      - run: flutter pub get
 
       - run: flutter build apk --release
 
-      # 👉 Tạo timestamp
+      # ✅ set timezone VN (optional)
+      - name: Set timezone
+        run: sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+
+      # ✅ tạo timestamp
       - name: Set timestamp
         run: echo "TIME=$(date +'%Y-%m-%d-%H-%M')" >> $GITHUB_ENV
 
-      # 👉 Rename file APK
+      # ✅ debug (rất quan trọng)
+      - name: Debug files
+        run: ls -R build/app/outputs
+
+      # ✅ copy + rename
       - name: Rename APK
         run: |
-          mv build/app/outputs/flutter-apk/app-release.apk \
-             build/app/outputs/flutter-apk/pet-tag-$TIME.apk
-      
-      - uses: actions/upload-artifact@v4
+          cp build/app/outputs/flutter-apk/app-release.apk \
+             build/app/outputs/flutter-apk/pet-tag-${TIME}.apk
+
+      # ✅ upload artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          name: pet-tag-$TIME
-          path: build/app/outputs/flutter-apk/pet-tag-$TIME.apk    
-     
-      - uses: softprops/action-gh-release@v2
+          name: pet-tag-${{ env.TIME }}
+          path: build/app/outputs/flutter-apk/pet-tag-${{ env.TIME }}.apk
+
+      # ✅ release (fix tên file)
+      - name: Release APK
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: build/app/outputs/flutter-apk/pet-tag-release-$TIME.apk
+          files: build/app/outputs/flutter-apk/pet-tag-${{ env.TIME }}.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
