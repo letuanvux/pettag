@@ -20,11 +20,7 @@ jobs:
 
       - run: flutter --version
 
-      - run: flutter pub get
-
-      - name: Fix Android config
-        run: |
-          sed -i 's/minSdkVersion [0-9]\+/minSdkVersion 21/g' android/app/build.gradle
+      - run: flutter pub get     
 
       - run: flutter build apk --release
 
