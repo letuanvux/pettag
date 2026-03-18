@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'theme/app_theme.dart';
 import 'navigation/bottom_nav.dart';
+import 'core/theme/app_theme.dart';
 
 class PetTagApp extends StatelessWidget {
   const PetTagApp({super.key});
@@ -8,9 +8,9 @@ class PetTagApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pet Tag',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      title: "Pet Tag",
+      theme: AppTheme.light,
       home: const BottomNav(),
     );
   }
