@@ -5,12 +5,21 @@ class CommunityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: const Text("Community")),
-
-      body: const Center(
-        child: Text("Lost Pets Near You"),
+      appBar: AppBar(title: Text("Community")),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: CircleAvatar(child: Icon(Icons.pets)),
+            title: Text("Bella"),
+            subtitle: Text("1 km away"),
+          ),
+          ListTile(
+            leading: CircleAvatar(child: Icon(Icons.pets)),
+            title: Text("Milo"),
+            subtitle: Text("500 m away"),
+          ),
+        ],
       ),
     );
   }

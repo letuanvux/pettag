@@ -1,3 +1,4 @@
+// lib/widgets/pet_card.dart
 import 'package:flutter/material.dart';
 
 class PetCard extends StatelessWidget {
@@ -5,52 +6,54 @@ class PetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Card(
-
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-
-        child: Row(
-          children: [
-
-            const CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                "https://images.unsplash.com/photo-1558788353-f76d92427f16",
-              ),
-            ),
-
-            const SizedBox(width: 16),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-
-                Text(
-                  "Bella",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                Text("Golden Retriever"),
-
-                Text("Last seen 5 min ago")
-
-              ],
-            ),
-
-            const Spacer(),
-
-            ElevatedButton(
-              onPressed: (){},
-              child: const Text("Open Map"),
-            )
-
+    return Container(
+      margin: EdgeInsets.all(16),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xff5FCF80),
+            Color(0xff4CAF6A),
           ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.green.withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: Offset(0, 8),
+          )
+        ],
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 32,
+            backgroundImage: AssetImage("assets/images/dog.png"),
+          ),
+          SizedBox(width: 16),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Bella",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Golden Retriever",
+                style: TextStyle(color: Colors.white70),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
