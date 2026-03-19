@@ -42,18 +42,26 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file("android/app/" + keystoreProperties["storeFile"])
-            storePassword = keystoreProperties["storePassword"] as String
+        val keyAliasValue = keystoreProperties["keyAlias"] as String?
+        val keyPasswordValue = keystoreProperties["keyPassword"] as String?
+        val storeFileValue = keystoreProperties["storeFile"] as String?
+        val storePasswordValue = keystoreProperties["storePassword"] as String?
+
+        if (keyAliasValue != null) {
+            keyAlias = keyAliasValue
+            keyPassword = keyPasswordValue
+            storeFile = file("android/app/$storeFileValue")
+            storePassword = storePasswordValue
         }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release") // 👈 FIX Ở ĐÂY
+            // 👇 chỉ dùng signing nếu có key
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 }
