@@ -1,12 +1,22 @@
-// lib/screens/map/map_screen.dart
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
-class MapScreen extends StatelessWidget {
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
   final LatLng pos = LatLng(21.0285, 105.8542);
 
-  MapScreen({super.key});
+  @override
+  void initState() {
+    super.initState();
+    requestLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +24,8 @@ class MapScreen extends StatelessWidget {
       body: Stack(
         children: [
           GoogleMap(
+            myLocationEnabled: true, // 👈 hiện vị trí
+            myLocationButtonEnabled: true,
             initialCameraPosition: CameraPosition(
               target: pos,
               zoom: 14,
@@ -39,15 +51,15 @@ class MapScreen extends StatelessWidget {
 
   Future<void> requestLocation() async {
     LocationPermission permission;
-  
+
     permission = await Geolocator.checkPermission();
-  
+
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
-  
+
     if (permission == LocationPermission.deniedForever) {
-      print("Permission denied forever");
+      await Geolocator.openAppSettings(); // 👈 mở setting
     }
   }
 
