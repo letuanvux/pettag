@@ -1,6 +1,7 @@
 // lib/screens/map/map_screen.dart
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapScreen extends StatelessWidget {
   final LatLng pos = LatLng(21.0285, 105.8542);
@@ -34,6 +35,20 @@ class MapScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> requestLocation() async {
+    LocationPermission permission;
+  
+    permission = await Geolocator.checkPermission();
+  
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+  
+    if (permission == LocationPermission.deniedForever) {
+      print("Permission denied forever");
+    }
   }
 
   Widget _btn(String text) {
