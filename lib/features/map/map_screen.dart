@@ -21,26 +21,83 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          GoogleMap(
-            myLocationEnabled: true, // 👈 hiện vị trí
-            myLocationButtonEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: pos,
-              zoom: 14,
+      backgroundColor: Colors.grey[200],
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 140,
+            pinned: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+
+            flexibleSpace: LayoutBuilder(
+              builder: (context, constraints) {
+                return Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF4CAF50),
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(20),
+                    ),
+                  ),
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Icon(Icons.arrow_back, color: Colors.white),
+                          const Text(
+                            "Map",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(6),
+                              child: Icon(Icons.add,
+                                  color: Colors.white, size: 18),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
 
-          Positioned(
-            bottom: 20,
-            left: 16,
-            right: 16,
-            child: Column(
+          // CONTENT FAKE
+          SliverToBoxAdapter(
+            child: Stack(
               children: [
-                _btn("Start Tracking"),
-                SizedBox(height: 10),
-                _btn("Find Nearby"),
+                GoogleMap(
+                  myLocationEnabled: true, // 👈 hiện vị trí
+                  myLocationButtonEnabled: true,
+                  initialCameraPosition: CameraPosition(
+                    target: pos,
+                    zoom: 14,
+                  ),
+                ),
+      
+                Positioned(
+                  bottom: 20,
+                  left: 16,
+                  right: 16,
+                  child: Column(
+                    children: [
+                      _btn("Start Tracking"),
+                      SizedBox(height: 10),
+                      _btn("Find Nearby"),
+                    ],
+                  ),
+                )
               ],
             ),
           )
