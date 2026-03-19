@@ -34,10 +34,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            // 👇 chỉ dùng signing nếu có key
-            if (keystorePropertiesFile.exists()) {
-                signingConfig = signingConfigs.getByName("release")
-            }
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }
